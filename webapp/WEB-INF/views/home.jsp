@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pagina Principal</title>
+<title>Bienvenidos al cine</title>
 </head>
 <body>
-	<h1>Bienvenido a la pagina Principal</h1>
+	<h1>Lista de peliculas</h1>
+	<ol>
+		<c:forEach items="${ movies }" var="movie">
+			<li>${ movie }</li>
+		</c:forEach>
+	</ol>
 </body>
 </html>
