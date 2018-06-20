@@ -10,7 +10,7 @@ public class Movie {
 	private String title;
 	private int duration;
 	private String classification;
-	private String gender;
+	private String type;
 	private String image = "cinema.png"; //Image for default
 	private Date releaseDate;
 	private String state = ACTIVE_STATE;
@@ -64,16 +64,16 @@ public class Movie {
 		this.classification = classification;
 	}
 	/**
-	 * @return the gender
+	 * @return the type
 	 */
-	public String getGender() {
-		return gender;
+	public String getType() {
+		return type;
 	}
 	/**
-	 * @param gender the gender to set
+	 * @param type the type to set
 	 */
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setType(String type) {
+		this.type = type;
 	}
 	/**
 	 * @return the image
@@ -118,7 +118,7 @@ public class Movie {
 	@Override
 	public String toString() {
 		return "Movie [id=" + id + ", title=" + title + ", duration=" + duration + ", classification=" + classification
-				+ ", gender=" + gender + ", image=" + image + ", releaseDate=" + releaseDate + ", state=" + state + "]";
+				+ ", gender=" + type + ", image=" + image + ", releaseDate=" + releaseDate + ", state=" + state + "]";
 	}
 	
 	
