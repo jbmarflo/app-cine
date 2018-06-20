@@ -1,4 +1,4 @@
-package net.itinajero.app.controller;
+package net.cine.app.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
