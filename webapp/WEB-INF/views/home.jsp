@@ -46,7 +46,7 @@
 							<td>${ movie.type }</td>
 							<td>${ movie.image }</td>
 							<td>${ movie.releaseDate }</td>
-							<td>${ movie.state }</td>
+							<td>${ movie.stateWord() }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

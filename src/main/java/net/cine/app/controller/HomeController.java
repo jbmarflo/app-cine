@@ -64,6 +64,7 @@ public class HomeController {
 			movie2.setClassification("C");
 			movie2.setType("Anime");
 			movie2.setReleaseDate(formatter.parse("02-12-2018"));
+			movie2.setState("0");
 			
 			list.add(movie1);
 			list.add(movie2);

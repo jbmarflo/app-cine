@@ -1,11 +1,15 @@
 package net.cine.app.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Movie {
 	
 	static final String ACTIVE_STATE = "1";
 	static final String INACTIVE_STATE = "0";
+	static final String ACTIVE_WORD_STATE = "Activo";
+	static final String INACTIVE_WORD_STATE = "Inactivo";
 	private int id;
 	private String title;
 	private int duration;
@@ -69,6 +73,15 @@ public class Movie {
 	public String getType() {
 		return type;
 	}
+	
+	public String stateWord() {
+		Map<String, String> states = new HashMap<String, String>();
+		states.put(INACTIVE_STATE, INACTIVE_WORD_STATE);
+		states.put(ACTIVE_STATE, ACTIVE_WORD_STATE);
+		
+		return states.get(state);
+	}
+	
 	/**
 	 * @param type the type to set
 	 */
