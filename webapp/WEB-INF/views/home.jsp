@@ -9,6 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>CineSite | Bienvenido</title>
+<spring:url value="/" var="urlRoot"></spring:url>
 <spring:url value="/resources" var="urlPublic"></spring:url>
 <link href="${urlPublic}/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -24,43 +25,48 @@
 
 		<!-- Carousel
     ================================================== -->
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-				<li data-target="#myCarousel" data-slide-to="3"></li>
-			</ol>
-			<!-- Image Size 1140 x 250 -->
-			<div class="carousel-inner" role="listbox">
-				<div class="item active">
-					<img src="${urlPublic}/images/slide1.jpg" alt="Slide"
-						title="Some text">
+    
+    	<c:if test="${ empty dateSearched }">
+	    	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+					<li data-target="#myCarousel" data-slide-to="3"></li>
+				</ol>
+				<!-- Image Size 1140 x 250 -->
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<img src="${urlPublic}/images/slide1.jpg" alt="Slide"
+							title="Some text">
+					</div>
+					<div class="item">
+						<img src="${urlPublic}/images/slide2.jpg" alt="Slide"
+							title="Some text">
+					</div>
+					<div class="item">
+						<img src="${urlPublic}/images/slide3.jpg" alt="Slide"
+							title="Some text">
+					</div>
+					<div class="item">
+						<img src="${urlPublic}/images/slide4.jpg" alt="Slide"
+							title="Some text">
+					</div>
 				</div>
-				<div class="item">
-					<img src="${urlPublic}/images/slide2.jpg" alt="Slide"
-						title="Some text">
-				</div>
-				<div class="item">
-					<img src="${urlPublic}/images/slide3.jpg" alt="Slide"
-						title="Some text">
-				</div>
-				<div class="item">
-					<img src="${urlPublic}/images/slide4.jpg" alt="Slide"
-						title="Some text">
-				</div>
+				<a class="left carousel-control" href="#myCarousel" role="button"
+					data-slide="prev"> <span
+					class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a> 
+				<a class="right carousel-control" href="#myCarousel" role="button"
+					data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
 			</div>
-			<a class="left carousel-control" href="#myCarousel" role="button"
-				data-slide="prev"> <span
-				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel" role="button"
-				data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
+    	</c:if>
+		
 		<!-- /.carousel -->
 
 		<div class="row page-header">
@@ -68,12 +74,19 @@
 				<h2 class="text text-center">
 					<span class="label label-success">EN CARTELERA</span>
 				</h2>
-				<form class="form-inline" action="#" method="post">
+				<form class="form-inline" action="${ urlRoot }search" method="post">
 					<div class="form-group">
-						<label for="fecha">Fecha: </label> <select id="fecha" name="fecha"
-							class="form-control">
+						<label for="fecha">Fecha: </label> 
+						<select id="fecha" name="date" class="form-control">
 							<c:forEach items="${ dates }" var="date">
-								<option value="${ date }">${ date }</option>
+								<c:choose>
+									<c:when test="${ dateSearched eq date }">
+										<option value="${ date }" selected>${ date }</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${ date }">${ date }</option>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 					</div>
@@ -88,16 +101,18 @@
 			<div class="row">
 				<c:forEach items="${ movies }" var="movie">
 					<div class="col-xs-12 col-sm-6 col-md-3">
-						<img class="img-rounded" src="${urlPublic}/images/${ movie.image }"
+						<img class="img-rounded"
+							src="${urlPublic}/images/${ movie.image }"
 							alt="Generic placeholder image" width="150" height="200">
 						<h4>${ movie.title }</h4>
 						<h4>
-							<span class="label label-default">${ movie.classification }</span> <span
-								class="label label-default">${ movie.duration } min</span> <span
-								class="label label-default">${ movie.type }</span>
+							<span class="label label-default">${ movie.classification }</span>
+							<span class="label label-default">${ movie.duration } min</span>
+							<span class="label label-default">${ movie.type }</span>
 						</h4>
 						<p>
-							<a class="btn btn-sm btn-primary" href="detail/${ movie.id }/${ searchDate }" role="button">Consulta
+							<a class="btn btn-sm btn-primary"
+								href="detail/${ movie.id }/${ searchDate }" role="button">Consulta
 								Horarios &raquo;</a>
 						</p>
 					</div>
@@ -127,14 +142,14 @@
 							La novela de Cynthia Swanson <span style="color: #0000ff;"><strong>The
 									Bookseller</strong></span> ser&aacute; llevada al cine con <span
 								style="color: #0000ff;">Julia Roberts (Los Pitufos: La
-								aldea Escondida)</span> como protagonista.<br />
-							<br />La historia est&aacute; ambientada en los sesenta y su
-							protagonista es una mujer soltera, Kitty Miller, que lleva una
-							librer&iacute;a. Sue&ntilde;a con una vida alternativa en la que
-							ha encontrado el amor y est&aacute; casada y con hijos, pero la
-							l&iacute;nea que separa realidad y ficci&oacute;n comienza a
-							estar demasiado dispersa para que la distinga.<br />
-							<br />Seg&uacute;n informa <span style="color: #ff0000;"><strong>Moviehole</strong></span>
+								aldea Escondida)</span> como protagonista.<br /> <br />La historia
+							est&aacute; ambientada en los sesenta y su protagonista es una
+							mujer soltera, Kitty Miller, que lleva una librer&iacute;a.
+							Sue&ntilde;a con una vida alternativa en la que ha encontrado el
+							amor y est&aacute; casada y con hijos, pero la l&iacute;nea que
+							separa realidad y ficci&oacute;n comienza a estar demasiado
+							dispersa para que la distinga.<br /> <br />Seg&uacute;n informa
+							<span style="color: #ff0000;"><strong>Moviehole</strong></span>
 							Roberts tambi&eacute;n producir&aacute; la pel&iacute;cula junto
 							a Lisa Gillan y Marisa Yeres Hill.
 						</p>

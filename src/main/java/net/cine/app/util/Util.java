@@ -28,7 +28,6 @@ public class Util {
 			Date d = gCal.getTime();
 			gCal.add(Calendar.DATE, 1);
 			nextDays.add(sdf.format(d));
-			System.out.println(gCal.getTime());
 		}
 		
 		return nextDays;

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import net.cine.app.model.Movie;
 import net.cine.app.util.Util;
 
@@ -19,11 +21,6 @@ public class HomeController {
 
 	private SimpleDateFormat formatDate = new SimpleDateFormat("dd-MMM-yyyy");
 	
-	@RequestMapping(value="/home", method=RequestMethod.GET)
-	public String goHome(){
-		return "home";
-	}
-	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String showMain(Model model) {
 		List<Movie> movies = getList();
@@ -31,6 +28,18 @@ public class HomeController {
 		model.addAttribute("dates", dateList);
 		model.addAttribute("movies", movies);
 		model.addAttribute("searchDate", formatDate.format(new Date()));
+		return "home";
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.POST)
+	public String search(@RequestParam("date") String date, Model model) {
+		System.out.println(date);
+		List<Movie> movies = getList();
+		List<String> dateList = Util.getNextDays(4);
+		model.addAttribute("dates", dateList);
+		model.addAttribute("movies", movies);
+		model.addAttribute("searchDate", formatDate.format(new Date()));
+		model.addAttribute("dateSearched", date);
 		return "home";
 	}
 	
