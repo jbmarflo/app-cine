@@ -1,20 +1,24 @@
 package net.cine.app.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.taglibs.standard.lang.jstl.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import net.cine.app.model.Movie;
+import net.cine.app.util.Util;
 
 @Controller
 public class HomeController {
 
+	private SimpleDateFormat formatDate = new SimpleDateFormat("dd-MMM-yyyy");
+	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String goHome(){
 		return "home";
@@ -23,15 +27,17 @@ public class HomeController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String showMain(Model model) {
 		List<Movie> movies = getList();
-		//movies.add("Rapidos y furiosos");
-		//movies.add("El aro 2");
-		//movies.add("Aliens");
+		List<String> dateList = Util.getNextDays(4);
+		model.addAttribute("dates", dateList);
 		model.addAttribute("movies", movies);
+		model.addAttribute("searchDate", formatDate.format(new Date()));
 		return "home";
 	}
 	
-	@RequestMapping(value="detail")
-	public String showDetail(Model model) {
+	@RequestMapping(value="detail/{id}", method=RequestMethod.GET)
+	public String showDetail(Model model, @PathVariable("id") int movieId) {
+		// @RequestParam("id") is to get query param for url
+		System.out.println(movieId);
 		String movieTitle = "Rapidos y Furiosos";
 		int duration = 136;
 		double price = 50;
@@ -53,6 +59,7 @@ public class HomeController {
 			movie1.setId(1);
 			movie1.setTitle("Power Ranger");
 			movie1.setDuration(120);
+			movie1.setImage("estreno1.png");
 			movie1.setClassification("B");
 			movie1.setType("Aventura");
 			movie1.setReleaseDate(formatter.parse("02-05-2018"));
