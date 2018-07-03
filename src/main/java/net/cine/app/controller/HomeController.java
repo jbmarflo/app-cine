@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.taglibs.standard.lang.jstl.parser.ParseException;
+import org.omg.PortableInterceptor.PolicyFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.cine.app.model.Movie;
+import net.cine.app.util.Sanitizer;
 import net.cine.app.util.Util;
 
 @Controller
@@ -25,6 +27,7 @@ public class HomeController {
 	public String showMain(Model model) {
 		List<Movie> movies = getList();
 		List<String> dateList = Util.getNextDays(4);
+		System.out.println(Sanitizer.html("<p>Hello, <? ?> <b>World!</b>"));
 		model.addAttribute("dates", dateList);
 		model.addAttribute("movies", movies);
 		model.addAttribute("searchDate", formatDate.format(new Date()));
