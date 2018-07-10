@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.cine.app.annotation.Sanitize;
 import net.cine.app.model.Movie;
 import net.cine.app.util.Sanitizer;
 import net.cine.app.util.Util;
@@ -27,16 +28,35 @@ public class HomeController {
 	public String showMain(Model model) {
 		List<Movie> movies = getList();
 		List<String> dateList = Util.getNextDays(4);
-		System.out.println(Sanitizer.html("<p>Hello, <? ?> <b>World!</b>"));
+		// System.out.println(Sanitizer.html("<p>Hello, <? ?> <b>World!</b>"));
 		model.addAttribute("dates", dateList);
 		model.addAttribute("movies", movies);
 		model.addAttribute("searchDate", formatDate.format(new Date()));
+		model.addAttribute("testSan", "Hola <a> <? ?>");
+		return "home";
+	}
+	
+	@RequestMapping(value="/form", method=RequestMethod.POST)
+	@Sanitize(type="html")
+	public String showMainForm(Model model, @RequestParam("date") String date) {
+		List<Movie> movies = getList();
+		List<String> dateList = Util.getNextDays(4);
+		System.out.println("--start--");
+		System.out.println(date);
+		System.out.println("--end--");
+		// System.out.println(Sanitizer.html("<p>Hello, <? ?> <b>World!</b>"));
+		model.addAttribute("dates", dateList);
+		model.addAttribute("changed", date);
+		model.addAttribute("movies", movies);
+		model.addAttribute("searchDate", formatDate.format(new Date()));
+		model.addAttribute("testSan", date);
 		return "home";
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.POST)
 	public String search(@RequestParam("date") String date, Model model) {
-		System.out.println(date);
+		System.out.println(Sanitizer.html(date));
+		System.out.println("end");
 		List<Movie> movies = getList();
 		List<String> dateList = Util.getNextDays(4);
 		model.addAttribute("dates", dateList);
@@ -46,7 +66,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="detail/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/detail/{id}", method=RequestMethod.GET)
 	public String showDetail(Model model, @PathVariable("id") int movieId) {
 		// @RequestParam("id") is to get query param for url
 		System.out.println(movieId);

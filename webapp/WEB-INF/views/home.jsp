@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import = "net.cine.app.util.Sanitizer" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,14 +21,19 @@
 <body>
 
 	<jsp:include page="includes/header.jsp"></jsp:include>
-
+	<form action="form" method="post">
+	<input type="text" name="date" id="codigoTipoFlujoOperacion" value="${testSan}">
+		<button type="submit">enviar</button>
+	</form>	
+	<div>${ changed }</div>
 	<div class="container theme-showcase" role="main">
 
 		<!-- Carousel
     ================================================== -->
-    
+    detected
+    	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     	<c:if test="${ empty dateSearched }">
-	    	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+	    	<%-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
 					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -64,7 +70,7 @@
 					class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 					<span class="sr-only">Next</span>
 				</a>
-			</div>
+			</div> --%>
     	</c:if>
 		
 		<!-- /.carousel -->

@@ -19,5 +19,10 @@
 	</bean>
 
 	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
-
+	<mvc:interceptors>
+	    <mvc:interceptor>
+	        <mvc:mapping path="/**" />
+	        <bean class="net.cine.app.util.CustomFilterHandlerInterceptor" />
+	    </mvc:interceptor>
+	</mvc:interceptors>
 </beans>

@@ -9,6 +9,9 @@ import org.owasp.html.Sanitizers;
 
 public final class Sanitizer {
 
+	public static final String HTML_VALUE = "html";
+	public static final String LINK_VALUE = "link";
+	
 	public static String html(String value) {
 		PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS);
 		return sanitizer.sanitize(value);

@@ -9,6 +9,10 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+	    <listener-class>net.cine.app.util.Listener</listener-class>
+	</listener>
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
 		<!-- <url-pattern>*.html</url-pattern> -->
